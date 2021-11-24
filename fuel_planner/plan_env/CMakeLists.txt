@@ -10,6 +10,8 @@ find_package(OpenCV REQUIRED)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  message_generation
+  detection_msgs
   rospy
   std_msgs
   visualization_msgs
@@ -19,6 +21,16 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
+
+add_service_files(
+  FILES
+  AddWalls.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  detection_msgs
+)
 
 catkin_package(
  INCLUDE_DIRS include
