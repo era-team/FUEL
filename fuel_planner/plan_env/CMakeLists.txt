@@ -48,6 +48,7 @@ include_directories(
     ${OpenCV_INCLUDE_DIRS}
 )
 
+
 link_directories(${PCL_LIBRARY_DIRS})
 
 
@@ -58,10 +59,11 @@ add_library( plan_env
     src/raycast.cpp
     src/map_ros.cpp
     )
-target_link_libraries( plan_env
+target_link_libraries(plan_env
     ${catkin_LIBRARIES} 
     ${PCL_LIBRARIES}
     )  
+add_dependencies(plan_env plan_env_generate_messages_cpp)
 
 add_executable(obj_generator
     src/obj_generator.cpp 
