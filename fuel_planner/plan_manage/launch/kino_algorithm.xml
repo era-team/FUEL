@@ -156,10 +156,6 @@
     <param name="bspline/limit_acc" value="$(arg max_acc)" type="double"/>
     <param name="bspline/limit_ratio" value="1.1" type="double"/>
 
-    <param name="bspline/limit_vel" value="$(arg max_vel)" type="double"/>
-    <param name="bspline/limit_acc" value="$(arg max_acc)" type="double"/>
-    <param name="bspline/limit_ratio" value="1.1" type="double"/>
-
   </node>
 
 </launch>
