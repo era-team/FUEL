@@ -1,18 +1,17 @@
 from math import *
 import numpy as np
 
-# cam_fx:     387.229
-# cam_fy:     387.229
-# cam_cx:     320.000
-# cam_cy:     243.449
-# # cam_cx:     321.046
+# cam_fx:     382.968
+# cam_fy:     382.968
+# cam_cx:     317.898
+# cam_cy:     239.149
 
 # proj_pt(0) = (u - mp_.cx_) * depth / mp_.fx_;
 # proj_pt(1) = (v - mp_.cy_) * depth / mp_.fy_;
 
-left = atan2(321.046, 387.229)
-right = atan2(640-321.046, 387.229)
-up = atan2(243.449, 387.229)
+left = atan2(317.898, 382.968)
+right = atan2(640-317.898, 382.968)
+up = atan2(239.149, 382.968)
 print left
 print right
 print up

@@ -66,7 +66,7 @@
         <param name="map_ros/fx" value="$(arg fx)"/>
         <param name="map_ros/fy" value="$(arg fy)"/>
         <param name="map_ros/depth_filter_maxdist" value="5.0"/>
-        <param name="map_ros/depth_filter_mindist" value="0.2"/>
+        <param name="map_ros/depth_filter_mindist" value="0.05"/>
         <param name="map_ros/depth_filter_margin" value="2"/>
         <param name="map_ros/k_depth_scaling_factor" value="1000.0"/>
         <param name="map_ros/skip_pixel" value="2"/>
@@ -114,10 +114,13 @@
         <param name="frontier/down_sample" value="3" type="int"/>
         <param name="frontier/min_visib_num" value="15" type="int"/>
         <param name="frontier/min_view_finish_fraction" value="0.2" type="double"/>
+        <!-- Параметры камеры, высчитываются в active_perception/script/calc_fov.py -->
         <param name="perception_utils/top_angle" value="0.56125" type="double"/>
         <param name="perception_utils/left_angle" value="0.69222" type="double"/>
         <param name="perception_utils/right_angle" value="0.68901" type="double"/>
+        <!-- Дальше этой дистанции точки считаются не в FOV камеры -->
         <param name="perception_utils/max_dist" value="4.5" type="double"/>
+        <!-- Параметр для визуализации камеры в rviz -->
         <param name="perception_utils/vis_dist" value="1.0" type="double"/>
         <param name="heading_planner/yaw_diff" value="$(eval 30 * 3.1415926 / 180.0)" type="double"/>
         <param name="heading_planner/half_vert_num" value="5" type="int"/>
@@ -192,9 +195,6 @@
         <param name="optimization/max_iteration_time2" value="0.005" type="double"/>
         <param name="optimization/max_iteration_time3" value="0.003" type="double"/>
         <param name="optimization/max_iteration_time4" value="0.003" type="double"/>
-        <param name="bspline/limit_vel" value="$(arg max_vel)" type="double"/>
-        <param name="bspline/limit_acc" value="$(arg max_acc)" type="double"/>
-        <param name="bspline/limit_ratio" value="1.1" type="double"/>
         <param name="bspline/limit_vel" value="$(arg max_vel)" type="double"/>
         <param name="bspline/limit_acc" value="$(arg max_acc)" type="double"/>
         <param name="bspline/limit_ratio" value="1.1" type="double"/>
