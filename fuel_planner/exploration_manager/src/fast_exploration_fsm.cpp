@@ -81,7 +81,7 @@ namespace fast_planner
     if (exec_state_ == FAST_PLANNER_EXEC_STATE::WAIT_TARGET)
       changeFSMExecState(FAST_PLANNER_EXEC_STATE::GEN_NEW_TRAJ, "TRIG");
     else if (exec_state_ == FAST_PLANNER_EXEC_STATE::EXEC_TRAJ)
-      changeFSMExecState(FAST_PLANNER_EXEC_STATE::REPLAN_TRAJ, "TRIG");
+      changeFSMExecState(FAST_PLANNER_EXEC_STATE::GEN_NEW_TRAJ, "TRIG");
   }
 
   void FastExplorationFSM::changeFSMExecState(FAST_PLANNER_EXEC_STATE new_state, string pos_call)
@@ -585,54 +585,54 @@ namespace fast_planner
         if (dist <= 0.3)
         {
           /* try to find a max distance goal around */
-          bool new_goal = false;
-          const double dr = 0.5, dtheta = 30, dz = 0.3;
-          double new_x, new_y, new_z, max_dist = -1.0;
-          Eigen::Vector3d goal;
+          // bool new_goal = false;
+          // const double dr = 0.5, dtheta = 30, dz = 0.3;
+          // double new_x, new_y, new_z, max_dist = -1.0;
+          // Eigen::Vector3d goal;
 
-          for (double r = dr; r <= 5 * dr + 1e-3; r += dr)
-          {
-            for (double theta = -90; theta <= 270; theta += dtheta)
-            {
-              for (double nz = 1 * dz; nz >= -1 * dz; nz -= dz)
-              {
-                new_x = end_pt_(0) + r * cos(theta / 57.3);
-                new_y = end_pt_(1) + r * sin(theta / 57.3);
-                new_z = end_pt_(2) + nz;
+          // for (double r = dr; r <= 5 * dr + 1e-3; r += dr)
+          // {
+          //   for (double theta = -90; theta <= 270; theta += dtheta)
+          //   {
+          //     for (double nz = 1 * dz; nz >= -1 * dz; nz -= dz)
+          //     {
+          //       new_x = end_pt_(0) + r * cos(theta / 57.3);
+          //       new_y = end_pt_(1) + r * sin(theta / 57.3);
+          //       new_z = end_pt_(2) + nz;
 
-                Eigen::Vector3d new_pt(new_x, new_y, new_z);
-                dist = planner_manager_->pp_.dynamic_ ? edt_env->evaluateCoarseEDT(new_pt,
-                                                                                   /* time to program start+ */ info->duration_)
-                                                      : edt_env->evaluateCoarseEDT(new_pt, -1.0);
+          //       Eigen::Vector3d new_pt(new_x, new_y, new_z);
+          //       dist = planner_manager_->pp_.dynamic_ ? edt_env->evaluateCoarseEDT(new_pt,
+          //                                                                          /* time to program start+ */ info->duration_)
+          //                                             : edt_env->evaluateCoarseEDT(new_pt, -1.0);
 
-                if (dist > max_dist)
-                {
-                  /* reset end_pt_ */
-                  goal(0) = new_x;
-                  goal(1) = new_y;
-                  goal(2) = new_z;
-                  max_dist = dist;
-                }
-              }
-            }
-          }
+          //       if (dist > max_dist)
+          //       {
+          //         /* reset end_pt_ */
+          //         goal(0) = new_x;
+          //         goal(1) = new_y;
+          //         goal(2) = new_z;
+          //         max_dist = dist;
+          //       }
+          //     }
+          //   }
+          // }
 
-          if (max_dist > 0.3)
-          {
-            cout << "change goal, replan." << endl;
-            end_pt_ = goal;
-            have_target_ = true;
-            end_vel_.setZero();
+          // if (max_dist > 0.3)
+          // {
+          //   cout << "change goal, replan." << endl;
+          //   end_pt_ = goal;
+          //   have_target_ = true;
+          //   end_vel_.setZero();
 
-            if (exec_state_ == FAST_PLANNER_EXEC_STATE::EXEC_TRAJ)
-            {
-              changeFSMExecState(REPLAN_TRAJ, "SAFETY");
-            }
+          //   if (exec_state_ == FAST_PLANNER_EXEC_STATE::EXEC_TRAJ)
+          //   {
+          //     changeFSMExecState(REPLAN_TRAJ, "SAFETY");
+          //   }
 
-            visualization_->drawGoal(end_pt_, 0.3, Eigen::Vector4d(1, 0, 0, 1.0));
-          }
-          else
-          {
+          //   visualization_->drawGoal(end_pt_, 0.3, Eigen::Vector4d(1, 0, 0, 1.0));
+          // }
+          // else
+          // {
             // have_target_ = false;
             // cout << "Goal near collision, stop." << endl;
             // changeFSMExecState(WAIT_TARGET, "SAFETY");
@@ -641,7 +641,7 @@ namespace fast_planner
 
             std_msgs::Empty emt;
             replan_pub_.publish(emt);
-          }
+          // }
         }
       }
 
